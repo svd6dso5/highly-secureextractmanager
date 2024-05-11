@@ -1,2 +1,7 @@
-const deepFlatten = (arr) =>
-  [].concat(...arr.map((v) => (Array.isArray(v) ? deepFlatten(v) : v)));
+function singleNumber(nums) {
+  let result = 0;
+  for (const num of nums) {
+    result ^= num;
+  }
+  return result;
+}
