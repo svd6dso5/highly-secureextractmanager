@@ -1,14 +1,17 @@
-function rob(nums) {
-  if (nums.length === 1) return nums[0];
-  const robRange = (start, end) => {
-    let prevMax = 0;
-    let currMax = 0;
-    for (let i = start; i <= end; i++) {
-      const temp = currMax;
-      currMax = Math.max(currMax, prevMax + nums[i]);
-      prevMax = temp;
+function pathSum(root, sum) {
+  if (!root) return [];
+  const result = [];
+  const path = [];
+  const traverse = (node, sum) => {
+    if (!node) return;
+    path.push(node.val);
+    if (!node.left && !node.right && sum === node.val) {
+      result.push([...path]);
     }
-    return currMax;
+    traverse(node.left, sum - node.val);
+    traverse(node.right, sum - node.val);
+    path.pop();
   };
-  return Math.max(robRange(0, nums.length - 2), robRange(1, nums.length - 1));
+  traverse(root, sum);
+  return result;
 }
